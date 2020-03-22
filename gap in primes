@@ -1,0 +1,33 @@
+#include<iostream>
+
+class GapInPrimes
+{
+public:
+	 static bool is_prime(long long a)
+	{
+		 for (long long i = 2; i*i <= a; ++i)
+			 if (a % i == 0)
+				return 0;
+		return 1;
+	}
+	static std::pair <long long, long long> gap(int g, long long m, long long n)
+	{
+		for (long long i = m; i <= n-g; ++i)
+		{
+			if (GapInPrimes::is_prime(i) && GapInPrimes::is_prime(i + g))
+				for (long long j = i + 1; j < i + g; j++)
+					if (GapInPrimes::is_prime(j))
+						break;
+					else if (j == i + g - 1)
+						return { i,i + g };
+		}
+		return { 0, 0 };
+	}
+};
+int main()
+{
+	std::pair <long long, long long> a = GapInPrimes::gap(10, 300, 400);
+	std::cout << a.first << a.second;
+	system("pause");
+	return 0;
+}
