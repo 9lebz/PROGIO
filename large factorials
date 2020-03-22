@@ -1,0 +1,36 @@
+#include <iostream>;
+#include <string>;
+#include <vector>;
+using namespace std;
+const int base = 10;
+string factorial(int n)
+{
+	
+	string factorial;
+	vector<int> a;
+	a.push_back(1);
+	for (int i = 1; i <= n; ++i)
+	{
+		int carry = 0;
+		for (int j = 0; j < a.size() || carry; ++j)
+		{
+			if (j==a.size())
+				a.push_back(0);
+			int cur = carry + a[j] * i;
+			a[j] =int (cur % base);
+			carry =int (cur / base);
+		}
+		while (a.size() > 1 && a.back() == 0)
+			a.pop_back();
+	}
+	for (int i = a.size() - 1; i >= 0; --i)
+		factorial += to_string(a[i]);
+	return factorial;
+}
+
+int main()
+{
+	cout << factorial(2000) << endl;
+	system("pause");
+	return 0;
+}
