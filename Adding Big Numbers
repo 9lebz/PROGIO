@@ -1,0 +1,38 @@
+#include<iostream>
+#include<string>
+#include <vector>
+#include<algorithm>
+std::string add(const std::string& a, const std::string& b) 
+{
+	std::vector<int> s1;
+	std::vector<int> s2;
+
+	{
+		for (int i = a.length() - 1; i >= 0; --i)
+			s1.push_back(a[i]-'0');
+		for (int i = b.length() - 1; i >= 0; --i)
+			s2.push_back(b[i]-'0');
+		short carry = 0;
+	}
+	bool carry = 0;
+	for (int i = 0; i < std::max(s1.size(), s2.size()) || carry; ++i)
+	{
+		if (i == s1.size())
+			s1.push_back(0);
+		s1[i] += carry + (i < s2.size() ? s2[i] : 0);
+		carry = s1[i] >= 10;
+		if (carry)
+			s1[i] -= 10;
+	}
+	std::string res;
+	for (int i =(int) s1.size() - 1; i >= 0; --i)
+		res += std::to_string(s1[i]);
+	return res;
+}
+int main()
+{
+	
+	std::cout << add("34567897867543543546798765567867634567656534676587", "234567898675456656787674535676587878673455766787674635768");
+	system("pause");
+	return 0;
+}
